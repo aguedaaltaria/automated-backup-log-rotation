@@ -1,12 +1,10 @@
-cat << 'EOF' > .gitignore
-# Archivos de registro y eventos generados por el sistema
+# Archivos de registro generados por las ejecuciones
 logs/*.log
 
 # Archivos de respaldo comprimidos y sus firmas criptográficas
 backups/*.tar.gz
 backups/*.sha256
 
-# Archivos temporales de prueba
+# Archivos temporales dentro del origen de pruebas
 source_data/*
 !source_data/.gitkeep
-EOF
