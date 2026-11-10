@@ -58,7 +58,13 @@ echo "=================================================="
 # -z: pasar por gzip (comprimir para que pese menos)
 # -p: preservar permisos de archivos originales
 # -f: nombre del archivo de salida
-tar -czpf "${RUTA_FINAL}" -C "${DIRECTORIO_ORIGEN}" .
+# Empaquetar y comprimir con soporte de exclusiones:
+if [ -n "${PATRON_EXCLUSION:-}" ]; then
+    echo "Aplicando exclusión para archivos: ${PATRON_EXCLUSION}"
+    tar --exclude="${PATRON_EXCLUSION}" -czpf "${RUTA_FINAL}" -C "${DIRECTORIO_ORIGEN}" .
+else
+    tar -czpf "${RUTA_FINAL}" -C "${DIRECTORIO_ORIGEN}" .
+fi
 
 # 9. Generar la huella de seguridad (SHA-256):
 sha256sum "${RUTA_FINAL}" > "${RUTA_FINAL}.sha256"
